@@ -9,7 +9,7 @@ exports.up = function(knex, Promise) {
         table.integer('userId').references('id')
             .inTable('users').notNull()
         table.integer('catagoryId').references('id')
-            .integer('categories').notNull();
+            .inTable('categories').notNull();
     })
 };
 
