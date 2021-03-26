@@ -1,5 +1,5 @@
 
-exports.up = function(knex, Promise) {
+exports.up = function(knex, Promise) {    
     return knex.schema.createTable('articles', table => {
         table.increments('id').primary();
         table.string('name').notNull()
@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
         table.binary('content').notNull()
         table.integer('userId').references('id')
             .inTable('users').notNull()
-        table.integer('catagoryId').references('id')
+        table.integer('categoryId').references('id')
             .inTable('categories').notNull();
     })
 };
