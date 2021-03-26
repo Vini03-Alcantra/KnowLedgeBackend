@@ -8,9 +8,9 @@ module.exports = app => {
         try{
             existsOrError(article.name , 'nome não informado')
             existsOrError(article.description , 'description não informado')
-            existsOrError(article.categoryId , 'categoria não informado')
-            existsOrError(article.userId , 'Autor não informado')
             existsOrError(article.content , 'Conteúdo não informado')            
+            existsOrError(article.userId , 'Autor não informado')
+            existsOrError(article.categoryId , 'categoria não informado')
         }catch(msg){
             res.status(400).send(msg)
         }
@@ -23,6 +23,9 @@ module.exports = app => {
                 .catch(err => res.status(500).send(err))
         } else {
             app.db('articles')
+                .insert(article)
+                .then(() => res.status(204).send())
+                .catch(err => res.status(500).send(err))
         }
     }
 
