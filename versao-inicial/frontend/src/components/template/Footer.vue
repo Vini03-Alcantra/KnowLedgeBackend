@@ -1,5 +1,7 @@
 <template>
-    <div class="content"></div>
+    <footer class="footer">
+        <span>Copyright<strong>Cod3r</strong>2021</span>
+    </footer>
 </template>
 
 <script>
