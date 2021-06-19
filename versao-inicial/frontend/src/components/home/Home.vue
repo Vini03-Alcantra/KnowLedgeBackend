@@ -5,11 +5,11 @@
         />
 
         <div class="stats">
-            <Stat title="Categorias" :values="stat.categories"
+            <Stat title="Categorias" :value="stat.categories"
                 icon="fa fa-folder" color="#d54d50" />
-            <Stat title="Artigos" :values="stat.articles"
+            <Stat title="Artigos" :value="stat.articles"
                 icon="fa fa-file" color="#3bc480" />
-            <Stat title="Usuários" :values="stat.users"
+            <Stat title="Usuários" :value="stat.users"
                 icon="fa fa-user" color="#3282cd" />
         </div>
     </div>
@@ -30,8 +30,16 @@ export default{
         }
     },
     methods: {
-        getStats(){
-            axios.get(`${baseApiUrl}/stats`).then(res => this.stat = res.data)            
+        getStats(){            
+            
+            // axios.get(`${baseApiUrl}/stats`).then(res => this.stat = res.data)            
+            axios.get(`${baseApiUrl}/stats`).then((res) => {
+                console.log(res.data)
+                this.stat = res.data
+                console.log(this.stat.categories)
+                console.log(this.stat.articles)
+                console.log(this.stat.users)
+            })                    
         }
     },
     mounted(){
@@ -39,3 +47,11 @@ export default{
     }
 }
 </script>
+
+<style>
+    .stats {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+</style>
