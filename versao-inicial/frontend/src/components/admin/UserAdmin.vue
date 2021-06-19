@@ -1,0 +1,11 @@
+<template>
+    <div class="user-admin">
+        <h1>Usuários Componentes</h1>
+    </div>
+</template>
+
+<script>
+export default{
+    name: "UserAdmin"
+}
+</script>
