@@ -3,14 +3,39 @@
         <PageTitle icon="fa fa-home" main="Dashboard"
             sub="Base de conhecimento" 
         />
+
+        <div class="stats">
+            <Stat title="Categorias" :values="stat.categories"
+                icon="fa fa-folder" color="#d54d50" />
+            <Stat title="Artigos" :values="stat.articles"
+                icon="fa fa-file" color="#3bc480" />
+            <Stat title="Usuários" :values="stat.users"
+                icon="fa fa-user" color="#3282cd" />
+        </div>
     </div>
 </template>
 
 <script>
 import PageTitle from "../template/PageTitle"
+import Stat from "./Stat"
+import axios from "axios"
+import {baseApiUrl} from "@/global"
 
 export default{
     name: "Home",
-    components: {PageTitle}
+    components: {PageTitle, Stat},
+    data: function(){
+        return {
+            stat: {}
+        }
+    },
+    methods: {
+        getStats(){
+            axios.get(`${baseApiUrl}/stats`).then(res => this.stat = res.data)            
+        }
+    },
+    mounted(){
+        this.getStats()
+    }
 }
 </script>
