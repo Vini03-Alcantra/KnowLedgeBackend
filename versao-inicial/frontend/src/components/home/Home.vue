@@ -33,12 +33,8 @@ export default{
         getStats(){            
             
             // axios.get(`${baseApiUrl}/stats`).then(res => this.stat = res.data)            
-            axios.get(`${baseApiUrl}/stats`).then((res) => {
-                console.log(res.data)
-                this.stat = res.data
-                console.log(this.stat.categories)
-                console.log(this.stat.articles)
-                console.log(this.stat.users)
+            axios.get(`${baseApiUrl}/stats`).then((res) => {                
+                this.stat = res.data                
             })                    
         }
     },
