@@ -7,6 +7,7 @@
                     <b-form-group label="Nome" label-for="category-name">
                         <b-form-input id="category-name" type="text"
                             v-model="category.name" required
+                            :readonly="mode === 'remove'"
                             placeholder="Informe o nome da categoria"
                         />                        
                     </b-form-group>
@@ -18,19 +19,19 @@
                         </b-col>
                     </b-row>
                 </b-col>                                
-            </b-row>
-            <hr>
-            <b-table hover striped :items="categories" :fields="fields">                
-                <template slot="actions" slot-scope="data">
-                    <b-button variant="warning" @click="loadCategories(data.item)" class="mr-2">
-                        <i class="fa fa-pencil"></i>
-                    </b-button>
-                    <b-button variant="danger" @click="loadCategories(data.item, 'remove')">
-                        <i class="fa fa-trash"></i>
-                    </b-button>
-                </template>
-            </b-table>
+            </b-row>            
         </b-form>
+        <hr>
+        <b-table hover striped :items="categories" :fields="fields">                
+            <template slot="actions" slot-scope="data">
+                <b-button variant="warning" @click="loadCategorie(data.item)" class="mr-2">
+                    <i class="fa fa-pencil"></i>
+                </b-button>
+                <b-button variant="danger" @click="loadCategorie(data.item, 'remove')">
+                    <i class="fa fa-trash"></i>
+                </b-button>
+            </template>
+        </b-table>
     </div>
 </template>
 
@@ -67,7 +68,7 @@ export default{
         },
         save(){
             const method = this.category.id ? 'put':'post'
-            const id = this.category.id ? `/${this.article.id}` : ''
+            const id = this.category.id ? `/${this.category.id}` : ''
             axios[method](`${baseApiUrl}/categories${id}`, this.category)
                 .then(() => {
                     this.$toasted.global.defaultSuccess()
