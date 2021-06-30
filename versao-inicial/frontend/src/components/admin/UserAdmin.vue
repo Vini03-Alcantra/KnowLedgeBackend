@@ -50,7 +50,16 @@
             <b-button class="ml-2" @click="reset">Cancelar</b-button>            
         </b-form>
         <hr>
-        <b-table hover striped :items="users" :fields="fields"></b-table>
+        <b-table hover striped :items="users" :fields="fields">
+            <template slot="actions" slot-scope="data">
+                <b-button variant="warning" @click="loadUser(data.item)" class="mr-2">
+                    <i class="fa fa-pencil"></i>
+                </b-button>
+                <b-button variant="danger" @click="loadUser(data.item, 'remove')">
+                    <i class="fa fa-trash"></i>
+                </b-button>
+            </template>
+        </b-table>
     </div>
 </template>
 
@@ -105,8 +114,13 @@ export default{
                     this.reset()
                 })
                 .catch(showError)
+        },
+        loadUser(user, mode = 'save'){
+            this.mode = mode;
+            this.user = {...user}
         }
     },
+    
     mounted(){
         this.loadUsers()
     }
