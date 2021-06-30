@@ -11,15 +11,26 @@
                             placeholder="Informe o nome da categoria"
                         />                        
                     </b-form-group>
-                    <b-row>
-                        <b-col xs="12">
-                            <b-button variant="primary" v-if="mode === 'save'" @click="save">Salvar</b-button>
-                            <b-button variant="danger" v-if="mode === 'remove'" @click="remove">Excluir</b-button>
-                            <b-button class="ml-2" @click="reset">Cancelar</b-button>
-                        </b-col>
-                    </b-row>
                 </b-col>                                
             </b-row>            
+            <b-row v-show="mode === 'save'">
+                <b-col sm="12">
+                    <b-form-group label="Categoria Pai" label-for="category-parentId">
+                        <b-form-select id="category-parentId"
+                            :options="categories" v-model="category.parentId"
+                        >
+
+                        </b-form-select>
+                    </b-form-group>
+                </b-col>                                
+            </b-row>            
+            <b-row>
+                <b-col xs="12">
+                    <b-button variant="primary" v-if="mode === 'save'" @click="save">Salvar</b-button>
+                    <b-button variant="danger" v-if="mode === 'remove'" @click="remove">Excluir</b-button>
+                    <b-button class="ml-2" @click="reset">Cancelar</b-button>
+                </b-col>
+            </b-row>                
         </b-form>
         <hr>
         <b-table hover striped :items="categories" :fields="fields">                
@@ -58,7 +69,9 @@ export default{
         loadCategories(){
             const url = `${baseApiUrl}/categories`;
             axios.get(url).then(res => {
-                this.categories = res.data
+                this.categories = res.data.map(category => {
+                    return {...category, value: category.id, text: category.path}
+                })
             })
         },
         reset(){
